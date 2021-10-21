@@ -4,6 +4,7 @@ class Store {
     card = []
     filterArray = []
     index = 0
+    filterLet = 2
     constructor() {
         makeAutoObservable(this)
     }
@@ -21,17 +22,19 @@ class Store {
     }
     changeCheck = (id) => {
         this.card = this.card.map(el => el.id === id ? { ...el, completed: !el.completed } : el);
-        console.log(Reflect.get(this.card[0], "completed"))
+        this.filtering(this.filterLet)
     }
     removeCard = (id) => {
         this.card = this.card.filter(el => el.id !== id)
         this.filterArray = this.filterArray.filter(el => el.id !== id)
-        console.log(this.card)
     }
-    filtering = (filterLet) => {
-        if (filterLet === 0) {
+    changeFilterLet = (filLet) => {
+       this.filterLet = filLet
+    } 
+    filtering = () => {
+        if (this.filterLet === 0) {
             this.filterArray = this.card.filter(el => el.completed === true);
-        } else if (filterLet === 1) {
+        } else if (this.filterLet === 1) {
             this.filterArray = this.card.filter(el => el.completed === false);
         } else {
             this.filterArray = this.card;

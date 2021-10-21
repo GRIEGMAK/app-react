@@ -6,21 +6,19 @@ import store from './../store';
 import Card from './Card';
 
 const App = () => {
-  const { addNewCard, card, changeCheck, removeCard, filtering, filterArray } = store
-  const [task, setTask] = React.useState('')
-  let filterLet = 2
-  const filterChange = (fillet) => {
-    filterLet = fillet
-    filtering(fillet)
+  const { addNewCard, card, changeCheck, removeCard, filtering, filterArray, filterLet, changeFilterLet } = store
+  const filterChange = (filterLet) => {
+    changeFilterLet(filterLet)
+    filtering(filterLet)
   }
   let getCardArray = undefined
   if (card) {
-    getCardArray = filterArray.map((c, i) => <Card key={i} id={i + 1} {...c} changeCheck={changeCheck} removeCard={removeCard} />)
+    getCardArray = filterArray.map((c, i) => <Card key={i} {...c} changeCheck={changeCheck} removeCard={removeCard} filtering={filtering} filterLet={filterLet} />)
   }
   return (
     <div className="wrapper">
       <div className="wpapperPadding">
-        <Forma className="wrapperForm" task={task} setTask={setTask} addNewCard={addNewCard}  filterChange={filterChange}/>
+        <Forma className="wrapperForm" task={task} setTask={setTask} addNewCard={addNewCard} filtering={filtering} filterLet={filterLet} />
         <div>
           <h1 className="titleProblem wrapper">Список задач:</h1>
           <div onClick={() => filterChange(0)}>Выполненные</div>

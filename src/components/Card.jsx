@@ -2,16 +2,15 @@ import React from 'react';
 import './../styles/Card.css';
 
 const Card = (props) => {
-   const { problem, id, changeCheck, completed, removeCard } = props
-   const [check, setCheck] = React.useState(completed)
+   const { problem, id, changeCheck, completed, removeCard, filterLet, filtering } = props
    const CheckChange = () => {
       changeCheck(id)
-      setCheck(!check)
+      filtering(filterLet)
    }
    return (
-      <div className="card_container" name="checkbox" >
+      <div name="checkbox" >
          {completed}
-         {problem} <input type="checkbox" checked={false} onChange={CheckChange} /> <button onClick={() => { removeCard(id) }}>delete</button>
+         {problem} <input type="checkbox" checked={completed} onChange={CheckChange} /> <button onClick={() => { removeCard(id) }}>delete</button>
       </div>
    );
 }
